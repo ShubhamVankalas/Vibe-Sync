@@ -1,0 +1,16 @@
+system:
+  # The local LLM model to use via Ollama for monitoring summaries
+  llm_model: llama3.2:1b
+  # The base URL for the local Ollama API
+  ollama_api_url: http://localhost:11434/api/generate
+
+vector_db:
+  # Where to save the FAISS local database backup
+  index_path: .vibe/faiss_index.bin
+  # Where to save text mappings for the vectors
+  metadata_path: .vibe/metadata.json
+
+vibe_rules:
+  - "Always format code output exactly according to PEP 8 for Python."
+  - "When adding new logic, include brief inline comments explaining the 'why'."
+  - "Prefer modern async/await patterns where applicable."

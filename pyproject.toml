@@ -1,0 +1,59 @@
+[project]
+name = "vibe-sync"
+version = "0.3.0"
+description = "A local-first system that maintains unified development context across AI coding tools via MCP."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Shubham Vankalas"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "mcp>=1.0.0",
+    "faiss-cpu>=1.8.0",
+    "watchdog>=4.0.0",
+    "pyyaml>=6.0",
+    "requests>=2.31.0",
+    "numpy>=1.26.0",
+    "rich>=13.0.0",
+    "typer>=0.12.0",
+    "tiktoken>=0.7.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ShubhamVankalas/Vibe-Sync"
+Repository = "https://github.com/ShubhamVankalas/Vibe-Sync"
+Issues = "https://github.com/ShubhamVankalas/Vibe-Sync/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4.0",
+]
+
+[project.scripts]
+vibe-config = "vibe_sync.cli:app"
+vibe-server = "vibe_sync.server:main"
+vibe-monitor = "vibe_sync.monitor:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
