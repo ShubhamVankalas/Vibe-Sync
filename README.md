@@ -33,22 +33,57 @@ It silently watches your codebase, tracks *which tool* made *what changes* and *
 
 ```mermaid
 graph LR
-    A[Cursor] -->|MCP| S[Vibe-Sync Server]
-    B[Claude Code] -->|MCP| S
-    C[Windsurf] -->|MCP| S
-    D[Aider] -->|MCP| S
-    E[OpenCode] -->|MCP| S
+    subgraph AI_Tools [AI Coding Suite]
+        A["<b>⟁ Cursor</b>"]
+        B["<b>🗲 Claude Code</b>"]
+        C["<b>🏄 Windsurf</b>"]
+        D["<b>🤖 Aider</b>"]
+        E["<b>⌨️ OpenCode</b>"]
+    end
 
-    S --> L[Vibe Ledger]
-    S --> R[Vibe Rules]
+    subgraph Core [Vibe Sync Engine]
+        S((("Vibe-Sync Server")))
+        L[("📜 Vibe Ledger")]
+        R[("⚖️ Vibe Rules")]
+    end
 
-    M[File Monitor] -->|watchdog| F[Your Codebase]
-    M -->|summarize| O[Ollama Local LLM]
+    subgraph Monitoring [Local Context]
+        M{{"🔍 File Monitor"}}
+        F["📁 Your Codebase"]
+        O[["🦙 Ollama Local LLM"]]
+    end
+
+    %% Connections
+    A & B & C & D & E -->|MCP| S
+    
+    S --- L
+    S --- R
+
+    M -->|watchdog| F
+    M -->|summarize| O
     O --> S
 
-    style S fill:#0891b2,stroke:#06b6d4,color:#fff
-    style O fill:#7c3aed,stroke:#8b5cf6,color:#fff
-    style M fill:#059669,stroke:#10b981,color:#fff
+    %% Individual Tool Colors
+    style A fill:#0B0E14,stroke:#00E5FF,color:#fff,stroke-width:2px
+    style B fill:#D97706,stroke:#F59E0B,color:#fff,stroke-width:2px
+    style C fill:#00A3FF,stroke:#00E5FF,color:#fff,stroke-width:2px
+    style D fill:#24292E,stroke:#6E7681,color:#fff,stroke-width:2px
+    style E fill:#059669,stroke:#10B981,color:#fff,stroke-width:2px
+
+    %% Infrastructure Colors
+    style S fill:#0891B2,stroke:#06B6D4,color:#fff,stroke-width:4px,stroke-dasharray: 5 5
+    style O fill:#7C3AED,stroke:#A78BFA,color:#fff,stroke-width:2px
+    style M fill:#059669,stroke:#10B981,color:#fff
+    style F fill:#1E293B,stroke:#334155,color:#94A3B8
+    
+    %% Storage Colors
+    style L fill:#0F172A,stroke:#334155,color:#94A3B8
+    style R fill:#0F172A,stroke:#334155,color:#94A3B8
+
+    %% Container Styles
+    style AI_Tools fill:#111,stroke:#333,stroke-dasharray: 5 5
+    style Core fill:#111,stroke:#333,stroke-dasharray: 5 5
+    style Monitoring fill:#111,stroke:#333,stroke-dasharray: 5 5
 ```
 
 1. **`vibe-monitor`** watches your codebase. When files change, it attributes the change to a specific tool and summarizes the *intent* using a local Ollama model.
